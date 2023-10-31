@@ -1,0 +1,69 @@
+
+
+      <!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <title>የተጠቃሚ የመመዝገብ ቅፅ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+
+    <h2> የመመዝገብያ ቅፅ</h2> 
+    <form name="submit-to-google-sheet">
+
+    
+      
+      <div class="form-group">
+        <label for="name">ስም</label>
+        <input type="text" id="name" name="name" placeholder="ስምዎን ያስገቡ" required>
+      </div>
+      <div class="form-group">
+        <label for="department">ዲፓርትመንት</label>
+        <input type="text" id="department" name="department" placeholder="ዲፓርትመንት ያስገቡ" required>
+      </div>
+      <div class="form-group">
+        <label for="section">ሴክሽን</label>
+        <input type="text" id="section" name="section" placeholder="ሴክሽን ያስገቡ" required>
+      </div>
+      <div class="form-group">
+        <label for="block">ብሎክ</label>
+        <input type="text" id="block" name="block" placeholder="Block ያስገቡ" required>
+      </div>
+      <div class="form-group">
+        <label for="dorm">ዶርም ቁ.</label>
+        <input type="text" id="dorm" name="dorm" placeholder="Dorm ቁ. ያስገቡ" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">ስልክ ቁ.</label>
+        <input type="tel" id="phone" name="phone" placeholder="+251-9-00-00-00-00 ያስገቡ" required>
+      </div>
+    <button type="submit">Register</button>
+    </form>
+    <span id ="msg"></span>
+  </div>
+</body>
+</html>
+
+
+      <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw8tr_66qdxSzQpRuGELHctGCr7LVquHG_8LFlWfX0FQrZePlBnATi3gMZOVx3IKHE/exec'
+        const form = document.forms['submit-to-google-sheet']
+
+        const msg = document.getElementById("msg")
+      
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response =>{
+
+            msg.innerHTML = "Registered successfully"
+              setTimeout(function(){
+                msg.innerHTML = ""
+              },5000)
+              form.reset()
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script>
